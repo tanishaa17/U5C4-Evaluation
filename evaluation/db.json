@@ -29,7 +29,8 @@
             "time": "23:59",
             "theme": "technology",
             "description": "Random Event",
-            "image": "https://images.unsplash.com/photo"
+            "image": "https://images.unsplash.com/photo",
+            "subscribed": []
         }
     ]
 }
