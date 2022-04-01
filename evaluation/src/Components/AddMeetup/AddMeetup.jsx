@@ -1,104 +1,123 @@
+// User should be able to add/create new meetups
+
 import axios from "axios";
 import { useState } from "react";
-export const LoginSignUp = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    password: "",
-    location: "",
-    interests: [],
-    image: ""
-  })
-  const handleChange = (e) => {
-    const { className, value } = e.target
-    setFormData({ ...formData, [className]: value });
-  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    axios.post("http://localhost:8080/users", formData).then((res) => {
-      alert("User Created");
-    })
-  }
+export const AddMeetup = () => {
+  const [meet, setMeet] = useState({
+    title: "",
+    location: "",
+    date: "",
+    time: "",
+    theme: "",
+    description: "",
+    image: "",
+  });
+
+  const handleChange = ({ className, value }) => {
+    setMeet({ ...meet, [className]: value });
+  };
+
+  const handleSubmit = () => {
+    axios
+      .post("http://localhost:8080/meetups", meet)
+      .then((res) => {})
+      .catch((er) => {});
+  };
+
   return (
-    <div className="loginSignUp">
-      <form className="signUp" onSubmit={(e) => { handleSubmit(e) }}>
-        <h1>SignUp</h1>
-        <label>name</label>
+    <div className="addMeetupContainer">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
+        }}
+      >
+        <h1>Add Meetup</h1>
+        <label>title</label>
         <input
           type="text"
-          className="name"
-          onChange={(event) => { handleChange(event) }}
+          className="title"
+          onChange={(event) => {
+            handleChange(event.target);
+          }}
           required
         />
-        <br />
-        <label>password</label>
-        <input
-          type="text"
-          className="password"
-          onChange={(event) => { handleChange(event) }}
-          required
-        />
-        <br />
-        <select value={""} className="location" onChange={(event) => { handleChange(event) }}>
+        <label>Location</label>
+        <select
+          value={""}
+          className="location"
+          onChange={(event) => {
+            handleChange(event.target);
+          }}
+        >
           <option value=""></option>
           <option value="bangalore">Bangalore</option>
           <option value="kolkata">Kolkata</option>
           <option value="delhi">Delhi</option>
           <option value="mumbai">Mumbai</option>
         </select>
-        <label>Interests</label>
         <br />
-        <label>technology</label>
+        <label>date</label>
         <input
-          type="checkbox"
-          className="technology"
-          onChange={(event) => { }}
+          type="text"
+          className="date"
+          onChange={(event) => {
+            handleChange(event.target);
+          }}
+          placeholder="format YYYY-MM-DD"
+          required
         />
         <br />
-        <label>food</label>
-        <input type="checkbox" className="food" onChange={(event) => { handleChange(event) }} />
+        <label>time</label>
+        <input
+          type="text"
+          className="time"
+          onChange={(event) => {
+            handleChange(event.target);
+          }}
+          placeholder="format HH:MM"
+          required
+        />
         <br />
-        <label>movies</label>
-        <input type="checkbox" className="movies" onChange={(event) => { handleChange(event) }} />
+        <label>Theme</label>
+        <select
+          value={meet.theme}
+          className="theme"
+          onChange={(event) => {
+            handleChange(event.target);
+          }}
+        >
+          <option value="">-----------</option>
+          <option value="technology">Technology</option>
+          <option value="food">Food</option>
+          <option value="movies">Movies</option>
+          <option value="culture">Culture</option>
+          <option value="art">Art</option>
+          <option value="drama">Drama</option>
+        </select>
+        <label>description</label>
+        <input
+          type="text"
+          className="description"
+          onChange={(event) => {
+            handleChange(event.target);
+          }}
+          placeholder="Description"
+          required
+        />
         <br />
-        <label>culture</label>
-        <input type="checkbox" className="culture" onChange={(event) => { handleChange(event) }} />
-        <br />
-        <label>art</label>
-        <input type="checkbox" className="art" onChange={(event) => { handleChange(event) }} />
-        <br />
-        <label>drama</label>
-        <input type="checkbox" className="drama" onChange={(event) => { handleChange(event) }} />
-        <br />
-        <label>image</label>
+        <label>Image</label>
         <input
           type="text"
           className="image"
-          onChange={(event) => { handleChange(event) }}
+          onChange={(event) => {
+            handleChange(event.target);
+          }}
           required
         />
         <br />
-        <input type="submit" className="submitSignUpForm" />
-      </form>
-      <form className="login" onSubmit={(e) => { }}>
-        <h1>Login</h1>
-        <label>name</label>
-        <input
-          type="text"
-          className="name"
-          onChange={(event) => { }}
-          required
-        />
-        <br />
-        <label>password</label>
-        <input
-          type="text"
-          className="password"
-          onChange={(event) => { }}
-          required
-        />
-        <br />
-        <input type="submit" className="submitLoginForm" />
+        <input className="submitMeetupForm" type="submit" />
       </form>
     </div>
   );
